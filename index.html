@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#F6E3C4">
+<title>毛豆腐 App 遊戲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div id="frame">
+    <svg id="stage" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet" aria-label="遊戲畫面">
+      <defs>
+        <!-- 牆面與桌面 -->
+        <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FFF7E6"/><stop offset="1" stop-color="#F3D9B1"/>
+        </linearGradient>
+        <linearGradient id="gTable" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#D99A5E"/><stop offset=".08" stop-color="#C98647"/><stop offset="1" stop-color="#9E5E2C"/>
+        </linearGradient>
+        <linearGradient id="gTableEdge" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F0B97A"/><stop offset="1" stop-color="#C98647"/>
+        </linearGradient>
+        <linearGradient id="gBeam" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8A5530"/><stop offset="1" stop-color="#5E3519"/>
+        </linearGradient>
+        <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#9FD6F2"/><stop offset="1" stop-color="#E9F6FB"/>
+        </linearGradient>
+        <linearGradient id="gNightSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1E2A5A"/><stop offset="1" stop-color="#3E4F8C"/>
+        </linearGradient>
+        <linearGradient id="gMount1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FB7A4"/><stop offset="1" stop-color="#B9DCCB"/>
+        </linearGradient>
+        <linearGradient id="gMount2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4E9483"/><stop offset="1" stop-color="#8CC3AE"/>
+        </linearGradient>
+        <!-- 食材 -->
+        <radialGradient id="gBean" cx=".38" cy=".32" r=".75">
+          <stop offset="0" stop-color="#FFF0B0"/><stop offset=".45" stop-color="#F4CF6A"/><stop offset="1" stop-color="#D49A34"/>
+        </radialGradient>
+        <radialGradient id="gBeanWet" cx=".38" cy=".32" r=".75">
+          <stop offset="0" stop-color="#FFF8D6"/><stop offset=".45" stop-color="#F7DA86"/><stop offset="1" stop-color="#DDAA4A"/>
+        </radialGradient>
+        <linearGradient id="gTofuTop" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFFFFB"/><stop offset="1" stop-color="#F6EEDC"/>
+        </linearGradient>
+        <linearGradient id="gTofuFront" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FBF4E4"/><stop offset="1" stop-color="#E9DBBE"/>
+        </linearGradient>
+        <linearGradient id="gTofuSide" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#E8D9BA"/><stop offset="1" stop-color="#D8C59E"/>
+        </linearGradient>
+        <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#BFE7F7" stop-opacity=".95"/><stop offset="1" stop-color="#7CC6E6" stop-opacity=".95"/>
+        </linearGradient>
+        <radialGradient id="gMilk" cx=".45" cy=".4" r=".7">
+          <stop offset="0" stop-color="#FFFFFF"/><stop offset=".7" stop-color="#FBF5E6"/><stop offset="1" stop-color="#EFE2C3"/>
+        </radialGradient>
+        <radialGradient id="gWhey" cx=".45" cy=".4" r=".7">
+          <stop offset="0" stop-color="#FFF6CF"/><stop offset="1" stop-color="#E9D58E"/>
+        </radialGradient>
+        <radialGradient id="gOil" cx=".4" cy=".35" r=".7">
+          <stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset=".6" stop-color="#F5B83E" stop-opacity=".8"/><stop offset="1" stop-color="#D98A1E" stop-opacity=".7"/>
+        </radialGradient>
+        <!-- 器具 -->
+        <linearGradient id="gStone" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#C9C3B8"/><stop offset=".5" stop-color="#A8A196"/><stop offset="1" stop-color="#857E73"/>
+        </linearGradient>
+        <linearGradient id="gStoneSide" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#8E877C"/><stop offset=".35" stop-color="#B8B1A5"/><stop offset="1" stop-color="#6F685E"/>
+        </linearGradient>
+        <linearGradient id="gWood" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#A86A36"/><stop offset=".4" stop-color="#D49A5C"/><stop offset="1" stop-color="#8F5528"/>
+        </linearGradient>
+        <linearGradient id="gWoodV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#D9A266"/><stop offset="1" stop-color="#9C6031"/>
+        </linearGradient>
+        <linearGradient id="gIron" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#2E2B29"/><stop offset=".35" stop-color="#5A5550"/><stop offset="1" stop-color="#262321"/>
+        </linearGradient>
+        <radialGradient id="gPanIn" cx=".45" cy=".4" r=".65">
+          <stop offset="0" stop-color="#5C5753"/><stop offset=".8" stop-color="#36322F"/><stop offset="1" stop-color="#211E1C"/>
+        </radialGradient>
+        <linearGradient id="gCeramic" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#E8E4DA"/><stop offset=".35" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFC8BA"/>
+        </linearGradient>
+        <linearGradient id="gJar" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#7A4A2A"/><stop offset=".35" stop-color="#B9784A"/><stop offset="1" stop-color="#5C341B"/>
+        </linearGradient>
+        <linearGradient id="gBrick" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E9E2D3"/><stop offset="1" stop-color="#CFC4AE"/>
+        </linearGradient>
+        <radialGradient id="gFire" cx=".5" cy=".85" r=".8">
+          <stop offset="0" stop-color="#FFF6B0"/><stop offset=".35" stop-color="#FFC23D"/><stop offset=".7" stop-color="#FF7A1A"/><stop offset="1" stop-color="#E5401A" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gGlow" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#FFE9A0" stop-opacity=".9"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gFuzz" cx=".5" cy=".5" r=".5">
+          <stop offset=".55" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gChili" cx=".4" cy=".35" r=".7">
+          <stop offset="0" stop-color="#FF8A5C"/><stop offset=".6" stop-color="#E0321C"/><stop offset="1" stop-color="#A51E10"/>
+        </radialGradient>
+        <radialGradient id="gCheek" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#FF8FA0" stop-opacity=".85"/><stop offset="1" stop-color="#FF8FA0" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="gStraw" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#F3D27A"/><stop offset="1" stop-color="#D9A845"/>
+        </linearGradient>
+        <linearGradient id="gCloth" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFFDF6"/><stop offset="1" stop-color="#EDE3CC"/>
+        </linearGradient>
+        <pattern id="pMesh" width="8" height="8" patternUnits="userSpaceOnUse">
+          <path d="M0 0H8M0 0V8" stroke="#D9CCAE" stroke-width="1" fill="none"/>
+        </pattern>
+        <pattern id="pBurlap" width="10" height="10" patternUnits="userSpaceOnUse">
+          <rect width="10" height="10" fill="#C9A270"/>
+          <path d="M0 2.5H10M0 7.5H10" stroke="#B48A58" stroke-width="2"/>
+          <path d="M2.5 0V10M7.5 0V10" stroke="#D8B584" stroke-width="1.4" opacity=".8"/>
+        </pattern>
+        <!-- 濾鏡 -->
+        <filter id="fShadow" x="-20%" y="-20%" width="140%" height="160%">
+          <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#5A3410" flood-opacity=".28"/>
+        </filter>
+        <filter id="fSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+        <filter id="fBlur2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+        <filter id="fGold" x="-60%" y="-60%" width="220%" height="220%">
+          <feColorMatrix type="matrix" values="1.15 0 0 0 0.05  0 1.05 0 0 0.02  0 0 0.55 0 0  0 0 0 1 0" result="tint"/>
+          <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="blur"/>
+          <feFlood flood-color="#FFD84A"/>
+          <feComposite in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="glow"/><feMergeNode in="tint"/></feMerge>
+        </filter>
+        <filter id="fBurnt"><feColorMatrix type="matrix" values=".42 0 0 0 0  0 .3 0 0 0  0 0 .22 0 0  0 0 0 1 0"/></filter>
+        <linearGradient id="gLogo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FFE45C"/><stop offset=".55" stop-color="#FFB02E"/><stop offset="1" stop-color="#FF7A1A"/>
+        </linearGradient>
+      </defs>
+      <g id="bg"></g>
+      <g id="world"></g>
+      <g id="fx"></g>
+    </svg>
+
+    <!-- 上方工具列 -->
+    <div id="topbar" hidden>
+      <button class="iconbtn" id="btnHome" aria-label="返回">
+        <svg viewBox="0 0 40 40"><path d="M6 20 20 7l14 13" fill="none" stroke="#6B3E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 18v14h18V18" fill="#FFE2B0" stroke="#6B3E1E" stroke-width="3.5" stroke-linejoin="round"/><rect x="17" y="24" width="6" height="8" rx="1.5" fill="#D9824A"/></svg>
+      </button>
+      <div id="levelTitle"></div>
+      <div class="spacer"></div>
+      <button class="iconbtn" id="btnVoice" aria-label="語音開關">
+        <svg viewBox="0 0 40 40"><path d="M8 15h6l8-7v24l-8-7H8z" fill="#FFE2B0" stroke="#6B3E1E" stroke-width="3" stroke-linejoin="round"/><path class="wave" d="M27 14q4 6 0 12M31 10q7 10 0 20" fill="none" stroke="#6B3E1E" stroke-width="3" stroke-linecap="round"/><path class="slash" d="M27 13l10 14M37 13 27 27" stroke="#D9472B" stroke-width="3.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="iconbtn" id="btnMusic" aria-label="音樂開關">
+        <svg viewBox="0 0 40 40"><path d="M15 29V10l16-4v19" fill="none" stroke="#6B3E1E" stroke-width="3" stroke-linejoin="round"/><ellipse cx="11" cy="29" rx="5" ry="4" fill="#FFB36B" stroke="#6B3E1E" stroke-width="2.5"/><ellipse cx="27" cy="25" rx="5" ry="4" fill="#FFB36B" stroke="#6B3E1E" stroke-width="2.5"/><path class="slash" d="M6 6l28 28" stroke="#D9472B" stroke-width="3.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <!-- 吉祥物與對話 -->
+    <div id="guide" hidden>
+      <div id="mascotBox"></div>
+      <div id="bubble"><span id="bubbleText"></span><button id="btnRepeat" aria-label="再聽一次">
+        <svg viewBox="0 0 40 40"><path d="M8 15h6l8-7v24l-8-7H8z" fill="#FFE2B0" stroke="#6B3E1E" stroke-width="3" stroke-linejoin="round"/><path d="M27 14q4 6 0 12" fill="none" stroke="#6B3E1E" stroke-width="3" stroke-linecap="round"/></svg>
+      </button></div>
+    </div>
+
+    <div id="progress" hidden><div id="progressFill"></div></div>
+
+    <!-- 小知識卡 / 對話框 -->
+    <div id="modal" hidden>
+      <div id="card">
+        <div id="cardArt"></div>
+        <div id="cardStars"></div>
+        <h2 id="cardTitle"></h2>
+        <p id="cardText"></p>
+        <div id="cardBtns"></div>
+      </div>
+    </div>
+
+  </div>
+  <div id="rotateHint">把手機轉成橫的玩，畫面會更大喔！</div>
+</div>
+<script src="js/voice-clips.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/art.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/levels.js"></script>
+<script src="js/points-logic.js"></script>
+<script src="js/points.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
